@@ -29,7 +29,7 @@ $("btnSearch").onclick = function () {
 
 //双击下载图片
 $("showSkillsWin").ondblclick =function(){
-    let url= document.querySelector(".skillImg").src;
+    var url= document.querySelector(".skillImg").src;
     downloadFile(url);
 }
 
@@ -43,14 +43,14 @@ function hidResult() {
 }
 
 function showWin(type,ext){
-    let id = $("ddlChooseServant").value;
+    var id = $("ddlChooseServant").value;
     if (id == "-1") {
         alert("请选择从者");
         return;
     }
     showDiv("showSkillsWin");
-    let servant = servants[id];
-    let eName = filterStr(servant.eName);
+    var servant = servants[id];
+    var eName = filterStr(servant.eName);
     document.querySelector(".skillImg").src=`images/${type}/${eName}${ext}`;
 }
 
@@ -102,8 +102,8 @@ function search() {
     
     
     //更新数组序号
-    let tmpServants = [];
-    for (let i = 0; i < servants.length; i++) {
+    var tmpServants = [];
+    for (var i = 0; i < servants.length; i++) {
         tmpServants[servants[i].id] = servants[i];
     }
     servants = tmpServants;
@@ -156,7 +156,7 @@ $("btnRedirectWiki").onclick = function () {
 }
 //跳转页面
 function redirectLink(link) {
-    let id = $("ddlChooseServant").value;
+    var id = $("ddlChooseServant").value;
     if (id != "-1" && id != "") {
         //window.top.location = link + servants[id].servantNo;
         openTab(link + servants[id].servantNo);
@@ -181,7 +181,7 @@ function setStorage() {
 function loadStorage(isTreasure) {
     $("ckIsMaxGrail").checked=false;
     if (storage) {
-        let id = storage.getItem("ddlChooseServant");
+        var id = storage.getItem("ddlChooseServant");
         if (id!=null&&id != "" && id != "-1") {
             $("ddlChooseServant").value = id;
             if (isTreasure) {
@@ -194,9 +194,9 @@ function loadStorage(isTreasure) {
 
 //绑定属性和特性值
 function binds(servant,key,id,flag){
-    let attributes = servant[key].clone();//数组复制，不影响原数组
+    var attributes = servant[key].clone();//数组复制，不影响原数组
     if (attributes instanceof Array && attributes.length > 0) {
-        for (let i = 0; i < attributes.length; i++) {
+        for (var i = 0; i < attributes.length; i++) {
             attributes[i]= `<a href=\"javascript:;\" data-value=\"${flag}${attributes[i]}\" onclick=\"autoClickSearch(this)\">${attributes[i]}</a>`;
         }
 
@@ -215,7 +215,7 @@ function bindCharacteristics(servant) {
 }
 //加载搜索提示(类似自动完成)
 function bindSearchTips(){
-    let tips=[],
+    var tips=[],
         tmpCamp,
         tmpAttributes,
         tmpCharacteristics;
@@ -236,9 +236,9 @@ function bindSearchTips(){
     //去重
     tips=Array.from(new Set(tips));
     //加载属性和特性的搜索提示(类似自动完成)
-    let dlTips=$("dlTips");
+    var dlTips=$("dlTips");
     tips.forEach(function(t){
-        let opt=document.createElement("option");
+        var opt=document.createElement("option");
         opt.value=t;
         dlTips.appendChild(opt);
     })

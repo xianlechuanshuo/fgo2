@@ -39,16 +39,15 @@
     </style>
     <script src="js/common.js"></script>
     <script type="text/javascript">
-        "use strict";
         window.onload = function () {
             resizeWindow();
-            let links = $$("a");
-            for (let i = 0; i < links.length; i++) {
+            var links = $$("a");
+            for (var i = 0; i < links.length; i++) {
                 links[i].onclick = function () {
-                    let url = this.dataset.url;
+                    var url = this.dataset.url;
 
                     //获取选中的a标签
-                    let active = document.querySelector(".active");
+                    var active = document.querySelector(".active");
 
                     //移除选中a标签的"active"类名
                     active.classList.remove("active");
@@ -71,14 +70,14 @@
 
         //每次新开标签页打开其它域名的网页前重新设置默认选中项以及iframe的src属性值
         function resetChoose() {
-            let active = document.querySelector(".active");
+            var active = document.querySelector(".active");
 
             //移除选中a标签的"active"类名
             active.classList.remove("active");
 
             //默认选中第1个
             //由于这几个a标签不是兄弟元素，所以只能通过li元素来找
-            let first = document.querySelector("ul li:nth-child(1)>a");
+            var first = document.querySelector("ul li:nth-child(1)>a");
             first.classList.add("active");
             $("iContent").src = first.dataset.url;
         }

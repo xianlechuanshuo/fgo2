@@ -3,7 +3,7 @@ var servants = [];//定义数组
 var id = 0;
 function intialData() {
     //除非刷新页面，或者重新打开页面，完整的从者数据只会创建一次，提高执行效率
-    let servantsStorage=window.localStorage.getItem("servants");
+    var servantsStorage=window.localStorage.getItem("servants");
     if (servantsStorage) {
         servantsStorage = JSON.parse(servantsStorage);
         if(servantsStorage instanceof Array&&servantsStorage.length>0){
@@ -313,7 +313,7 @@ function intialData() {
 //加载各等级atk和hp
 function loadLvs(){
     servants.forEach(function(s){
-        let lvArr=[];
+        var lvArr=[];
         lvs.forEach(function(l){
             if(l.n==s.servantNo){
                 lvArr.push(l);
@@ -370,14 +370,14 @@ function loadLvs(){
 */
 function intialServant(career, name, eName, servantNo, keys, camp, attributes, characteristics, atk, hp, maxAtk, maxHp, cards, tl1, tl2, tl3, tl4, tl5, oc1, oc2, oc3, oc4, oc5, type, cardColor, careerSkill, treasureSideEffect) {
     //id++;//下标最好还是从0开始
-    let tl = {};
+    var tl = {};
     tl["tl1"] = tl1;
     tl["tl2"] = tl2;
     tl["tl3"] = tl3;
     tl["tl4"] = tl4;
     tl["tl5"] = tl5;
 
-    let oc = {};
+    var oc = {};
     oc["oc1"] = oc1;
     oc["oc2"] = oc2;
     oc["oc3"] = oc3;
@@ -386,7 +386,7 @@ function intialServant(career, name, eName, servantNo, keys, camp, attributes, c
 
     oc["type"] = type;
 
-    let model = {
+    var model = {
         id: id,
         career: career,
         name: name,

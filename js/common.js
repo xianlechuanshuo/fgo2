@@ -25,41 +25,41 @@ function hideDiv(id) {
 
 //获取下拉列表选中项文本值
 function getDdlText(id) {
-    let index = $(id).selectedIndex;
-    let text = $(id).options[index].text;
+    var index = $(id).selectedIndex;
+    var text = $(id).options[index].text;
     return text;
 }
 
 //获取下拉列表选中项的自定义属性值
 function getDdlAttrText(id, name) {
-    let index = $(id).selectedIndex;
-    let text = $(id).options[index].dataset[name];
+    var index = $(id).selectedIndex;
+    var text = $(id).options[index].dataset[name];
     return text;
 }
 
 //获取文本框的自定属性值，并转换为float数值
 function getTxtAttrFloatNum(id, name) {
-    let text = $(id).dataset[name];
+    var text = $(id).dataset[name];
     return parseFloat(text);
 }
 
 //获取文本框的自定属性值，并转换为整型数值
 function getTxtAttrIntNum(id, name) {
-    let text = $(id).dataset[name];
+    var text = $(id).dataset[name];
     return parseInt(text);
 }
 
 // 对数组的原型添加remove方法
 Array.prototype.remove = function (from, to) {
-    let rest = this.slice((to || from) + 1 || this.length);
+    var rest = this.slice((to || from) + 1 || this.length);
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
 };
 //从大到小排序
 function compare(property) {
     return function (a, b) {
-        let value1 = a[property];
-        let value2 = b[property];
+        var value1 = a[property];
+        var value2 = b[property];
         return value2 - value1;
     }
 }
@@ -72,10 +72,10 @@ function resizeWindow() {
     //IE中：document.frames['iframe的name'].document.getElementById('元素的ID');
     //非IE中：window.frames["iContent"].contentWindow.document.getElementById('content')
     //iframe的id与name不能一样
-    //let height = window.frames["iContent"].contentWindow ? window.frames["iContent"].contentWindow.document.getElementById('content').offsetHeight : document.frames['iContentN'].document.getElementById('content').offsetHeight;
+    //var height = window.frames["iContent"].contentWindow ? window.frames["iContent"].contentWindow.document.getElementById('content').offsetHeight : document.frames['iContentN'].document.getElementById('content').offsetHeight;
 
     //通用方法：通过contentWindow获取到内容页面的高度
-    let height = $('iContent').contentWindow.document.getElementById('content').offsetHeight;
+    var height = $('iContent').contentWindow.document.getElementById('content').offsetHeight;
     if (iContent) {
         $("iContent").style.height = (height + 300) + "px";
     }
@@ -83,10 +83,10 @@ function resizeWindow() {
 
 //内容页中，使父窗口iContent自适应内容高度
 function resizeParentWindow() {
-    let height = $("content").offsetHeight;//获取body的高度
+    var height = $("content").offsetHeight;//获取body的高度
 
     //获取到父容器iContent的dom对象
-    let iContent = window.parent.document.getElementById('iContent');
+    var iContent = window.parent.document.getElementById('iContent');
     if (iContent) {
         iContent.style.height = (height + 300) + "px";
     }
@@ -119,11 +119,11 @@ function appendCards(str){
     //     <li class="Arts"></li>
     //     <li class="Arts"></li>
     // </ul>
-    let ul=document.createElement("ul");
-    let li;
-    let divCard=document.querySelector(".cards");
-    for (let i = 0; i < str.length; i++) {
-        let card=str[i];
+    var ul=document.createElement("ul");
+    var li;
+    var divCard=document.querySelector(".cards");
+    for (var i = 0; i < str.length; i++) {
+        var card=str[i];
         li=document.createElement("li");
         li.className=getFullCardName(card);
         ul.appendChild(li);
@@ -145,7 +145,7 @@ function getFullCardName(card){
 
 //下载文件
 function downloadFile(src) {
-    let a = document.createElement('a');
+    var a = document.createElement('a');
     a.href=src;
     a.download="";
     a.click();
@@ -153,7 +153,7 @@ function downloadFile(src) {
 
 //新开标签页打开链接
 function openTab(link){
-    let a=document.createElement("a");   
+    var a=document.createElement("a");   
     a.target="_blank";
     a.href=link;
     a.click();
@@ -162,10 +162,10 @@ function openTab(link){
 //动态加载js脚本
 function loadScript(src){
     //js/jquery-1.12.4.min.js
-    let pos = src.lastIndexOf("/");
-    let filename = src.substr(pos +1);//jquery-1.12.4.min.js
-    let id=filename.replace(/[.-]/gi,"");//jquery1124minjs
-    let script =document.getElementById(id);
+    var pos = src.lastIndexOf("/");
+    var filename = src.substr(pos +1);//jquery-1.12.4.min.js
+    var id=filename.replace(/[.-]/gi,"");//jquery1124minjs
+    var script =document.getElementById(id);
     if (!script) {
         script=document.createElement("script");
         script.src=src;

@@ -330,7 +330,6 @@
 <script src="js/common.js"></script>
 <script src="js/base.js"></script>
 <script type="text/javascript">
-    "use strict";
     /****************************************************************************/
     intialData();
     intialServantList();
@@ -339,13 +338,13 @@
 
     //圣杯MAX勾选框改变事件
     $("ckIsMaxGrail").onchange = function () {
-        let id = $("ddlChooseServant").value;
+        var id = $("ddlChooseServant").value;
         if (id == "-1") {
             alert("请选择从者");
             return;
         }
-        let servant = servants[id];
-        let check = $("ckIsMaxGrail").checked;
+        var servant = servants[id];
+        var check = $("ckIsMaxGrail").checked;
         if (check) {
             $("txtAttack").value = servant.maxAtk;
             $("ddlLvs").selectedIndex=1;
@@ -372,7 +371,7 @@
         $("txtCritialPowerBuff").disabled = true;
         $("ddlLvs").selectedIndex=0;
 
-        let id = this.value;
+        var id = this.value;
         if (id != "-1" && id != "") {
             bindServantData(id);
         }
@@ -388,7 +387,7 @@
 
     //卡色选中项发生变化事件
     $("ddlCardColor").onchange = function () {
-        let cardEnabled = false;
+        var cardEnabled = false;
         if (getDdlAttrText("ddlCardColor", "type") == "ea1" || getDdlAttrText("ddlCardColor", "type") == "ea2") {
             //ex卡不吃卡牌buff
             cardEnabled = true;
@@ -417,7 +416,7 @@
                 }
             }
         }
-        let index = parseInt($("ddlChooseServant").value);
+        var index = parseInt($("ddlChooseServant").value);
         bindServantCareerSkillInfo(servants[index]);
         $("txtCardBuff").disabled = cardEnabled;
         if(cardEnabled){
@@ -427,7 +426,7 @@
 
     //卡位选中项发生变化事件
     $("ddlCardPosition").onchange = function () {
-        let cardEnabled2 = false;
+        var cardEnabled2 = false;
         if (getDdlAttrText("ddlCardPosition", "type") == "ea") {
             //ex卡不吃卡牌buff
             cardEnabled2 = true;
@@ -437,7 +436,7 @@
                 alert("请在卡色处选择Extra Attack");
                 $("ddlCardPosition").selectedIndex = 0;
                 cardEnabled2 = false;
-                let index = parseInt($("ddlChooseServant").value);
+                var index = parseInt($("ddlChooseServant").value);
                 bindServantCareerSkillInfo(servants[index]);
             }
 
@@ -459,14 +458,14 @@
     }
     //等级下拉列表选中项改变事件
     $("ddlLvs").onchange=function(){
-        let id=$("ddlChooseServant").value;
+        var id=$("ddlChooseServant").value;
         if (id == "-1" || id == "") {
             return;
         }
 
-        let servant = servants[id];  
+        var servant = servants[id];  
 
-        let lv=this.value;
+        var lv=this.value;
         //默认【圣杯MAX】非勾选状态
         $("ckIsMaxGrail").checked=false;
 
@@ -488,7 +487,7 @@
 
     //绑定从者基本信息
     function bindServantData(id) {
-        let servant = servants[id];
+        var servant = servants[id];
         //0.阵营
         //$("spanCamp").innerHTML = servant.camp;
         $("spanCamp").innerHTML = "<a href='javascript:;' data-value='@" + servant.camp + "' onclick='autoClickSearch(this)'>" + servant.camp + "</a>"
@@ -497,9 +496,9 @@
         $("txtAttack").value = servant.atk;
 
         //2.从者职介
-        let careers = $("ddlCareer").options;
-        for (let i = 0; i < careers.length; i++) {
-            let career = careers[i];
+        var careers = $("ddlCareer").options;
+        for (var i = 0; i < careers.length; i++) {
+            var career = careers[i];
             if (career.text == servant.career) {
                 career.selected = true;
             }
@@ -509,7 +508,7 @@
         bindServantCareerSkillInfo(servant);
 
         //4.配卡
-        let cardsStr = servant.cards;
+        var cardsStr = servant.cards;
         if (cardsStr && cardsStr.length == 5) {//ABBBQ
             //用CSS精灵减少图片的http请求次数(由原来3次变成现在的1次)
             appendCards(cardsStr);
@@ -525,16 +524,16 @@
     //绑定从者职介信息
     function bindServantCareerSkillInfo(servant) {
         //{ cardColor: 1, cardBuff: 10, fixedDamageBuff: 0, critialPowerBuff: 0 }
-        let careerSkill = servant.careerSkill;
+        var careerSkill = servant.careerSkill;
 
         if (careerSkill) {
-            let cardColorValue = getFloat("ddlCardColor");
-            let cardBuffs = careerSkill.cardBuff;
+            var cardColorValue = getFloat("ddlCardColor");
+            var cardBuffs = careerSkill.cardBuff;
             if (isNaN(cardBuffs)) {//"12|11"
                 cardBuffs = careerSkill.cardBuff.split('|');
             }
 
-            let cardColor = careerSkill.cardColor;
+            var cardColor = careerSkill.cardColor;
 
 
             /************************************卡牌Buff******************************************************/
@@ -550,23 +549,23 @@
             }
                 //Quick和Arts
             else if (cardColor == -2 && cardColorValue == 0.8 && cardBuffs && cardBuffs.length == 2) {
-                let quickBuff = cardBuffs[0];
+                var quickBuff = cardBuffs[0];
                 $("txtCardBuff").dataset.value = careerSkill.quickBuff;
                 $("txtCardBuff").value = quickBuff;
             }
             else if (cardColor == -2 && cardColorValue == 1 && cardBuffs && cardBuffs.length == 2) {
-                let artsBuff = cardBuffs[1];
+                var artsBuff = cardBuffs[1];
                 $("txtCardBuff").dataset.value = careerSkill.artsBuff;
                 $("txtCardBuff").value = artsBuff;
             }
                 //Buster和Quick
             else if (cardColor == -3 && cardColorValue == 1.5 && cardBuffs && cardBuffs.length == 2) {
-                let busterBuff = cardBuffs[0];
+                var busterBuff = cardBuffs[0];
                 $("txtCardBuff").dataset.value = careerSkill.busterBuff;
                 $("txtCardBuff").value = busterBuff;
             }
             else if (cardColor == -3 && cardColorValue == 0.8 && cardBuffs && cardBuffs.length == 2) {
-                let quickBuff = cardBuffs[1];
+                var quickBuff = cardBuffs[1];
                 $("txtCardBuff").dataset.value = careerSkill.quickBuff;
                 $("txtCardBuff").value = quickBuff;
             }
@@ -594,11 +593,11 @@
     }
 
     function intialServantList() {
-        for (let key in servants) {
+        for (var key in servants) {
             if (isNaN(key)) {
                 return;
             }
-            let item = servants[key];
+            var item = servants[key];
             $("ddlChooseServant").options.add(new Option("【" + item.career + "】" + item.name, item.id));
         }
     }
@@ -616,60 +615,60 @@
         }
         guid++;
         //1.攻击力
-        let attack = getFloat("txtAttack");
+        var attack = getFloat("txtAttack");
 
         //2.芙芙Atk
-        let fufuAtk = getFloat("txtFufuAtk");
+        var fufuAtk = getFloat("txtFufuAtk");
 
         //3.礼装Atk
-        let cardAtk = getFloat("txtCardAtk");
+        var cardAtk = getFloat("txtCardAtk");
 
         attack += fufuAtk + cardAtk;
 
         //4.首卡颜色
-        let firstCardColor = getFloat("ddlFirstCardColor");
+        var firstCardColor = getFloat("ddlFirstCardColor");
 
         //5.卡色
-        let cardColor = getFloat("ddlCardColor");
+        var cardColor = getFloat("ddlCardColor");
 
         //6.卡位
-        let cardPostion = getFloat("ddlCardPosition");
+        var cardPostion = getFloat("ddlCardPosition");
 
         //7.职介克制
-        let careerResist = getFloat("ddlCareerResist");
+        var careerResist = getFloat("ddlCareerResist");
 
         //8.阵营克制
-        let campResist = getFloat("ddlCampResist");
+        var campResist = getFloat("ddlCampResist");
 
         //9.从者职介 
-        let career = getFloat("ddlCareer");
+        var career = getFloat("ddlCareer");
 
         //10.卡牌Buff(%)
-        let cardBuff = getFloat("txtCardBuff") / 100;
+        var cardBuff = getFloat("txtCardBuff") / 100;
 
         //11.攻击力Buff(%)
-        let attackBuff = getFloat("txtAttackBuff") / 100;
+        var attackBuff = getFloat("txtAttackBuff") / 100;
 
         //12.敌方防御力Buff(%)
-        let enemyDefenceBuff = getFloat("txtEnemyDefenceBuff") / 100;
+        var enemyDefenceBuff = getFloat("txtEnemyDefenceBuff") / 100;
 
         //13.特攻威力Buff(%)
-        let specialAttackPowerBuff = getFloat("txtSpecialAttackPowerBuff") / 100;
+        var specialAttackPowerBuff = getFloat("txtSpecialAttackPowerBuff") / 100;
 
         //14.敌方特防威力Buff(%)
-        let specialDefencePowerBuff = getFloat("txtSpecialDefencePowerBuff") / 100;
+        var specialDefencePowerBuff = getFloat("txtSpecialDefencePowerBuff") / 100;
 
         //15.固定伤害Buff
-        let fixedDamageBuff = getFloat("txtFixedDamageBuff");
+        var fixedDamageBuff = getFloat("txtFixedDamageBuff");
 
         //16.敌方固定减伤Buff
-        let enemyFixedDamageReductionBuff = getFloat("txtEnemyFixedDamageReductionBuff");
+        var enemyFixedDamageReductionBuff = getFloat("txtEnemyFixedDamageReductionBuff");
 
         //17.暴击威力BUFF
-        let critialPowerBuff = getFloat("txtCritialPowerBuff") / 100;
+        var critialPowerBuff = getFloat("txtCritialPowerBuff") / 100;
 
         //18.EX攻击奖励
-        let exAttackReward = 1;
+        var exAttackReward = 1;
 
         if (getDdlAttrText("ddlCardColor", "type") == "ea1") {//不同色
             exAttackReward = 2.0;
@@ -679,13 +678,13 @@
         }
 
         //19.Buster Chain加成
-        let busterChain = 0;
+        var busterChain = 0;
         if ($("ckIsBusterChain").checked) {
             busterChain = 0.2;
         }
 
         //20.暴击补正：暴击时计算此项。为定值[2.0]。
-        let critialCorrection = 1.0;
+        var critialCorrection = 1.0;
         if ($("ckIsCritical").checked) {
             critialCorrection = 2.0;
         }
@@ -694,22 +693,22 @@
  +(固定伤害BUFF—敌方固定伤害BUFF)
  + ATK×Buster Chain加成
         */
-        let resultMin = attack * 0.23 * [cardColor * cardPostion * (1 + cardBuff) + firstCardColor] * career * careerResist * campResist * 0.9 * (1 + attackBuff - enemyDefenceBuff - specialDefencePowerBuff) * (1 + specialAttackPowerBuff + critialPowerBuff) * critialCorrection * exAttackReward + (fixedDamageBuff - enemyFixedDamageReductionBuff) + attack * busterChain;
+        var resultMin = attack * 0.23 * [cardColor * cardPostion * (1 + cardBuff) + firstCardColor] * career * careerResist * campResist * 0.9 * (1 + attackBuff - enemyDefenceBuff - specialDefencePowerBuff) * (1 + specialAttackPowerBuff + critialPowerBuff) * critialCorrection * exAttackReward + (fixedDamageBuff - enemyFixedDamageReductionBuff) + attack * busterChain;
         resultMin = Math.floor(resultMin);
 
-        let resultMax = attack * 0.23 * [cardColor * cardPostion * (1 + cardBuff) + firstCardColor] * career * careerResist * campResist * 1.1 * (1 + attackBuff - enemyDefenceBuff - specialDefencePowerBuff) * (1 + specialAttackPowerBuff + critialPowerBuff) * critialCorrection * exAttackReward + (fixedDamageBuff - enemyFixedDamageReductionBuff) + attack * busterChain;
+        var resultMax = attack * 0.23 * [cardColor * cardPostion * (1 + cardBuff) + firstCardColor] * career * careerResist * campResist * 1.1 * (1 + attackBuff - enemyDefenceBuff - specialDefencePowerBuff) * (1 + specialAttackPowerBuff + critialPowerBuff) * critialCorrection * exAttackReward + (fixedDamageBuff - enemyFixedDamageReductionBuff) + attack * busterChain;
         resultMax = Math.floor(resultMax);
 
-        let resultAvg = Math.round((resultMin + resultMax) * 1.0 / 2);
+        var resultAvg = Math.round((resultMin + resultMax) * 1.0 / 2);
 
-        let servantName = getDdlText("ddlChooseServant");
+        var servantName = getDdlText("ddlChooseServant");
 
-        let isMaxGrail = $("ckIsMaxGrail").checked;
+        var isMaxGrail = $("ckIsMaxGrail").checked;
         if (isMaxGrail) {
             servantName = "<span class='text-gradient'>" + servantName + "</span>";
         }
 
-        let careerResistClassName = "normal";//非克制
+        var careerResistClassName = "normal";//非克制
         if (careerResist > 1) {//克制
             careerResistClassName = "weak";
         }
@@ -717,7 +716,7 @@
             careerResistClassName = "resist";
         }
 
-        let model = {
+        var model = {
             guid: guid,
             servantName: servantName,
             lv:getDdlText("ddlLvs"),
@@ -753,10 +752,10 @@
         if (!resultArr || resultArr.length <= 0) {
             return;
         }
-        let min = 0;
-        let max = 0;
-        let avg = 0;
-        for (let i = 0; i < resultArr.length; i++) {
+        var min = 0;
+        var max = 0;
+        var avg = 0;
+        for (var i = 0; i < resultArr.length; i++) {
             min += resultArr[i].min;
             max += resultArr[i].max;
             avg = Math.round((min + max) * 1.0 / 2);
@@ -764,24 +763,24 @@
 
         rankIndex++;
 
-        let tb = document.getElementById("tbResult");
-        let newRow = tb.insertRow(-1);
+        var tb = document.getElementById("tbResult");
+        var newRow = tb.insertRow(-1);
         //1.排名
-        let firstCell = newRow.insertCell(-1);
+        var firstCell = newRow.insertCell(-1);
         firstCell.innerHTML = "总伤害";
         firstCell.colSpan = "15";//设置单元格跨14列
         firstCell.align = "center";//居中显示
 
         //14.指令卡伤害最小值
-        let minCell = newRow.insertCell(-1);
+        var minCell = newRow.insertCell(-1);
         minCell.innerHTML = min;
         minCell.classList.add("normal");
         //15.指令卡伤害最大值   
-        let maxCell = newRow.insertCell(-1);
+        var maxCell = newRow.insertCell(-1);
         maxCell.innerHTML = max;
         maxCell.classList.add("normal");
         //16.指令卡伤害平均值     
-        let avgCell = newRow.insertCell(-1);
+        var avgCell = newRow.insertCell(-1);
         avgCell.innerHTML = avg;
         avgCell.classList.add("normal");
         //17.删除操作     
@@ -792,19 +791,19 @@
     function reSort() {
         resultArr.sort(compare("avg"));
         clearTable();
-        for (let i = 0; i < resultArr.length; i++) {
+        for (var i = 0; i < resultArr.length; i++) {
             createTr(resultArr[i]);
         }
     }
 
     //删除指定行
     function delTr(obj, guid) {
-        for (let i = 0; i < resultArr.length; i++) {
+        for (var i = 0; i < resultArr.length; i++) {
             if (resultArr[i].guid == guid) {
                 resultArr.remove(i);
             }
         }
-        let deleteRow = obj.parentElement.parentElement;
+        var deleteRow = obj.parentElement.parentElement;
         deleteRow.parentElement.removeChild(deleteRow);
         reSort();
         calcTotal();
@@ -821,9 +820,9 @@
             hidResult();
         }
         rankIndex = 0;
-        let tb = document.getElementById("tbResult");
-        let len = tb.rows.length
-        for (let i = len - 1; i > 0; i--) {
+        var tb = document.getElementById("tbResult");
+        var len = tb.rows.length
+        for (var i = len - 1; i > 0; i--) {
             tb.deleteRow(i);
         }
         resizeParentWindow();
@@ -832,8 +831,8 @@
     function createTr(obj) {
         rankIndex++;
 
-        let tb = document.getElementById("tbResult");
-        let newRow = tb.insertRow(-1);
+        var tb = document.getElementById("tbResult");
+        var newRow = tb.insertRow(-1);
         //1.排名
         newRow.insertCell(-1).innerHTML = rankIndex;
         //2.从者
@@ -869,15 +868,15 @@
         newRow.insertCell(-1).innerHTML = obj.critialPowerBuff;
 
         //16.指令卡伤害最小值
-        let min = newRow.insertCell(-1);
+        var min = newRow.insertCell(-1);
         min.innerHTML = obj.min;
         min.classList.add(obj.careerResistClassName);
         //17.指令卡伤害最大值         
-        let max = newRow.insertCell(-1);
+        var max = newRow.insertCell(-1);
         max.innerHTML = obj.max;
         max.classList.add(obj.careerResistClassName);
         //18.指令卡伤害平均值
-        let avg = newRow.insertCell(-1);
+        var avg = newRow.insertCell(-1);
         avg.innerHTML = obj.avg;
         avg.classList.add(obj.careerResistClassName);
         //19.删除操作     
