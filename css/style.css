@@ -1,0 +1,154 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /**禁用移动端font boosting特性，解决移动端文字字体变大的问题**/
+    max-height: 99999px;
+    -webkit-text-size-adjust: none;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+
+    table th, table td {
+        border: 1px solid #000;
+        padding: 5px;
+    }
+
+.result {
+    font-size: 12px;
+    text-align: center;
+}
+
+.servant, .result {
+    width: 100%;
+}
+
+.servant tr:nth-child(1), .servant tr:last-child {
+    text-align: center;
+}
+
+.showSkills {
+    border: #808080 solid thick;
+    position: absolute;
+    top:2%;
+    left: 28%;
+    display: none;
+    background-color: white;
+}
+
+.close {
+    font-weight: bold;
+    font-size: 46px;
+    line-height: 46px;
+}
+
+.skillImg{
+    max-width: 600px;
+    max-height:600px;
+    float:left;
+}
+
+.resultWrapper {
+    display: none;
+}
+
+input[type="checkbox"], select {
+    vertical-align: middle;
+}
+
+input[type="button"] {
+    padding: 1px 6px;
+}
+
+.cards {
+    text-align: center;
+}
+.cards>ul{
+    list-style: none;
+}
+.cards>ul>li{
+    display: inline-block;
+    /*原图140X140，这里缩放成72X72*/
+    height:72px;
+    width:72px;
+    /*三个图，单个宽度72px，三个总共宽度216px*/
+    background-size: 216px;
+    background-image: url(../images/Box/Box.png);
+    background-repeat: no-repeat;
+}
+
+/*
+    background-position:x y;(x、y单位是%)
+    x：-{容器(container)的宽度—背景图片的宽度}*x百分比，超出的部分隐藏。
+    y：-{容器(container)的高度—背景图片的高度}*y百分比，超出的部分隐藏。
+*/
+
+/*Quick*/
+.cards>ul>li.quick{
+}
+/*Buster*/
+.cards>ul>li.buster{
+    /*-(240-80)*0.5=-80px*/
+    background-position: 50%;
+}
+/*Arts*/
+.cards>ul>li.arts{
+    /*-(240-80)*1=-160px*/
+    background-position: 100%;
+}
+
+/****清除浮动*****/
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+/**字体颜色渐变**/
+.text-gradient {
+    display: block;
+    word-wrap: normal;
+    font-weight: bold;
+    font-family: helvetica;
+    text-align: center;
+    background: -webkit-linear-gradient(left, #4f185d, #fe5d4b); /* 背景色渐变 */
+    -webkit-background-clip: text; /* 规定背景的划分区域 */
+    -webkit-text-fill-color: transparent; /* 防止字体颜色覆盖 */
+}
+
+/*克制、被克制、非克制样式*/
+.weak, .resist, .normal {
+    font-weight: bold;
+}
+
+.weak {
+    color: red;
+}
+
+.resist {
+    color: blue;
+}
+
+.search {
+    width: 200px;
+}
+
