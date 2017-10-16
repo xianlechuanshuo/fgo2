@@ -250,10 +250,10 @@ Array.prototype.uniq = function () {
 　　this.forEach(function(item) {
 　　　　// 排除 NaN (重要！！！)
 　　　　if (item != item) {
-　　　　　　flag && arr.indexOf(item) === -1 ? arr.push(item) : ‘‘;
+　　　　　　flag && arr.indexOf(item) === -1 ? arr.push(item) : '';
 　　　　　　flag = false;
 　　　　} else {
-　　　　　　arr.indexOf(item) === -1 ? arr.push(item) : ‘‘
+　　　　　　arr.indexOf(item) === -1 ? arr.push(item) :''
 　　　　}
 　　});
 　　return arr;
