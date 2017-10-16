@@ -1,5 +1,4 @@
-﻿"use strict";//只有在严格模式下才能使用es6的一些语法
-//localStorage只能存储字符串，如果需要存储对象，首先要转化为字符串。利用JSON.stringify()；
+﻿//localStorage只能存储字符串，如果需要存储对象，首先要转化为字符串。利用JSON.stringify()；
 var storage = window.localStorage;
 if (!storage) {
     alert("请使用支持html5的浏览器!");
