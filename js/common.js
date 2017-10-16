@@ -1,5 +1,4 @@
-﻿"use strict";//只有在严格模式下才能使用es6的一些语法
-//根据id获取dom对象
+﻿//根据id获取dom对象
 function $(id) {
     return document.getElementById(id);
 }

@@ -1,4 +1,3 @@
-"use strict";
 var servants = [];//定义数组
 var id = 0;
 function intialData() {

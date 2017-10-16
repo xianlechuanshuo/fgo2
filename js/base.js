@@ -51,7 +51,7 @@ function showWin(type,ext){
     showDiv("showSkillsWin");
     var servant = servants[id];
     var eName = filterStr(servant.eName);
-    document.querySelector(".skillImg").src=`images/${type}/${eName}${ext}`;
+    document.querySelector(".skillImg").src="images/"+type+"/"+eName+ext;
 }
 
 //显示技能图
@@ -142,7 +142,6 @@ function check(key) {
         return true;
     }
     return new RegExp(word, "gi").test(key);//忽略大小写
-    //return key.indexOf(word) != -1;
 }
 
 
@@ -197,7 +196,7 @@ function binds(servant,key,id,flag){
     var attributes = servant[key].clone();//数组复制，不影响原数组
     if (attributes instanceof Array && attributes.length > 0) {
         for (var i = 0; i < attributes.length; i++) {
-            attributes[i]= `<a href=\"javascript:;\" data-value=\"${flag}${attributes[i]}\" onclick=\"autoClickSearch(this)\">${attributes[i]}</a>`;
+            attributes[i]= "<a href=\"javascript:;\" data-value=\""+flag+attributes[i]+"\" onclick=\"autoClickSearch(this)\">"+attributes[i]+"</a>";
         }
 
         attributes = attributes.join("&nbsp;&nbsp;&nbsp;&nbsp;");
@@ -224,17 +223,18 @@ function bindSearchTips(){
         tmpAttributes=servant.attributes.clone();
         tmpCharacteristics=servant.characteristics.clone();
 
-        tips.push(`@${tmpCamp}`);
+        tips.push("@"+tmpCamp);
 
         tmpAttributes.forEach(function(a){
-            tips.push(`$${a}`);
+            tips.push("$"+a);
         });
     tmpCharacteristics.forEach(function(c){
-            tips.push(`#${c}`);
+            tips.push("#"+c);
+
         });
     })
     //去重
-    tips=Array.from(new Set(tips));
+    tips=tips.uniq();
     //加载属性和特性的搜索提示(类似自动完成)
     var dlTips=$("dlTips");
     tips.forEach(function(t){
@@ -242,4 +242,19 @@ function bindSearchTips(){
         opt.value=t;
         dlTips.appendChild(opt);
     })
+}
+
+Array.prototype.uniq = function () {
+　　var arr = [];
+　　var flag = true;
+　　this.forEach(function(item) {
+　　　　// 排除 NaN (重要！！！)
+　　　　if (item != item) {
+　　　　　　flag && arr.indexOf(item) === -1 ? arr.push(item) : ‘‘;
+　　　　　　flag = false;
+　　　　} else {
+　　　　　　arr.indexOf(item) === -1 ? arr.push(item) : ‘‘
+　　　　}
+　　});
+　　return arr;
 }
