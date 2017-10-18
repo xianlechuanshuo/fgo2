@@ -26,22 +26,42 @@
             text-align: center;
         }
 
-            nav > ul > li > a {
-                padding: 5px;
-                display: block;
-                color: white;
-                width: 130px;
-            }
+        nav > ul > li > a {
+            padding: 5px;
+            display: block;
+            color: white;
+            width: 130px;
+        }
 
         .active {
             background: blue;
         }
+
+        #to_top{
+          text-align:center;  
+          background:#06c; 
+          display:none;
+          position:fixed;
+          right:10px;
+          bottom:10px;
+          cursor:pointer; 
+        }
+        #to_top>a{
+          text-decoration: none;
+          display: block;
+          outline-style:none;
+          color:#fff;
+          width:30px; 
+          height:40px; 
+          padding:20px; 
+          font:14px/20px arial; 
+        }          
     </style>
     <script src="js/common.js"></script>
     <script type="text/javascript">
         window.onload = function () {
             resizeWindow();
-            var links = $$("a");
+            var links = document.querySelectorAll("#top a");
             for (var i = 0; i < links.length; i++) {
                 links[i].onclick = function () {
                     var url = this.dataset.url;
@@ -65,8 +85,6 @@
                 }
             }
         }
- 
-        window.onresize = resizeWindow;
 
         //每次新开标签页打开其它域名的网页前重新设置默认选中项以及iframe的src属性值
         function resetChoose() {
@@ -81,6 +99,19 @@
             first.classList.add("active");
             $("iContent").src = first.dataset.url;
         }
+
+        window.onresize = resizeWindow;
+
+        window.onscroll=function(){
+            var t=document.documentElement.scrollTop||document.body.scrollTop;
+            if(t>100){
+                $("to_top").style.display="block";
+            }
+            else{
+                $("to_top").style.display="none";
+            }
+        }
+
     </script>
 </head>
 <body>
