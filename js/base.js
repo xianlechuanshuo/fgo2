@@ -257,3 +257,27 @@ Array.prototype.uniq = function () {
 　　});
 　　return arr;
 }
+
+// filter兼容性处理
+Array.prototype.filter = Array.prototype.filter ||
+    function (fn, context) {
+        var arr = [];
+        if (typeof fn === "function") {
+            for (var k = 0, length = this.length; k < length; k++) {
+                fn.call(context, this[k], k, this) && arr.push(this[k]);
+            }
+        }
+        return arr;
+ };
+// find兼容性处理
+Array.prototype.find = Array.prototype.find ||
+    function (fn, context) {
+        if (typeof fn === "function") {
+            for (var k = 0, length = this.length; k < length; k++) {
+                if (fn.call(context, this[k], k, this)) {
+                    return this[k];
+                }
+            }
+        }
+        return undefined;
+};

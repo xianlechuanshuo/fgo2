@@ -9,17 +9,6 @@
 </body>
 </html>
 <script type="text/javascript">
-var word = "秩序";
-var servants=[{"id":0,"career":"Saber","name":"亚瑟・潘德拉贡〔Prototype〕","eName":"Arthur Pendragon〔Prototype〕","servantNo":160,"keys":["亚瑟","旧剑","亚瑟潘德拉贡"],"camp":"地","attributes":["秩序","善"],"characteristics":["骑乘","人型","龙","被「天地乖离开辟之星」所克","被「人类神话雷电降临」所克","被「神秘杀」所克","亚瑟","所爱之人","王"],"atk":12465,"hp":13975,"maxAtk":13645,"maxHp":15310,"cards":"AABBQ","tl":{"tl1":300,"tl2":400,"tl3":450,"tl4":475,"tl5":500},"oc":{"oc1":0,"oc2":0,"oc3":0,"oc4":0,"oc5":0,"type":""},"cardColor":1.5,"careerSkill":{"cardColor":0.8,"cardBuff":8,"fixedDamageBuff":0,"critialPowerBuff":0}}];
-function containsAttribute(servant) {
-    return servant.attributes.find(check);
-}
-function check(key) {
-    if (word == "") {
-        return true;
-    }
-    return new RegExp(word, "gi").test(key);//忽略大小写
-}
 // filter兼容性处理
 Array.prototype.filter = Array.prototype.filter ||
     function (fn, context) {
@@ -43,6 +32,19 @@ Array.prototype.find = Array.prototype.find ||
         }
         return undefined;
 };
+
+var word = "秩序";
+var servants=[{"id":0,"career":"Saber","name":"亚瑟・潘德拉贡〔Prototype〕","eName":"Arthur Pendragon〔Prototype〕","servantNo":160,"keys":["亚瑟","旧剑","亚瑟潘德拉贡"],"camp":"地","attributes":["秩序","善"],"characteristics":["骑乘","人型","龙","被「天地乖离开辟之星」所克","被「人类神话雷电降临」所克","被「神秘杀」所克","亚瑟","所爱之人","王"],"atk":12465,"hp":13975,"maxAtk":13645,"maxHp":15310,"cards":"AABBQ","tl":{"tl1":300,"tl2":400,"tl3":450,"tl4":475,"tl5":500},"oc":{"oc1":0,"oc2":0,"oc3":0,"oc4":0,"oc5":0,"type":""},"cardColor":1.5,"careerSkill":{"cardColor":0.8,"cardBuff":8,"fixedDamageBuff":0,"critialPowerBuff":0}}];
+function containsAttribute(servant) {
+    return servant.attributes.find(check);
+}
+function check(key) {
+    if (word == "") {
+        return true;
+    }
+    return new RegExp(word, "gi").test(key);//忽略大小写
+}
+
 //UC和自带的浏览器也不识别filter方法
 servants=servants.filter(containsAttribute);
 alert(servants.length);
