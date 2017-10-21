@@ -845,8 +845,8 @@
                 resultArr.remove(i);
             }
         }
-        var devareRow = obj.parentElement.parentElement;
-        devareRow.parentElement.removeChild(devareRow);
+        var deleteRow = obj.parentElement.parentElement;
+        deleteRow.parentElement.removeChild(deleteRow);
         reSort();
         if (!resultArr || resultArr.length <= 0) {
             hidResult();
