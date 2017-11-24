@@ -174,16 +174,4 @@ function loadScript(src){
 }
 //数组复制，不影响原数组
 Array.prototype.clone=function(){ return this.slice(0); } 
-
-
-//eval替代方法
-function eval2(str){
-    var result;
-    try{
-        result = new Function('return '+str)();
-    }
-    catch(e){
-        return 0;
-    }
-    return result?result:0;
-}   
+ 
