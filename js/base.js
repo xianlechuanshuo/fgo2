@@ -293,14 +293,3 @@ Array.prototype.find = Array.prototype.find ||
         }
         return undefined;
 };
-
-(function(){
-    var nums=document.querySelectorAll("#txtCardBuff,#txtAttackBuff,#txtEnemyDefenceBuff");
-    nums.forEach(function(n){
-        n.type="text";
-        n.onblur=function(){
-            //失去焦点后，计算值
-            n.value=eval2(n.value);   
-        }
-    })
-})();
