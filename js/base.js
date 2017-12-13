@@ -264,19 +264,18 @@ function bindSearchTips(){
         dlTips.appendChild(opt);
     })
     
-    let dlCardTips=$("dlCardTips");
-    dlCardTips.innerHTML=`
-        <option value="786">20级宝石翁</option>
-        <option value="1089">40级宝石翁</option>
-        <option value="2000">100级宝石翁</option>
-        <option value="332">20级虚数</option>
-        <option value="471">40级虚数</option>
-        <option value="750">80级虚数</option>
-        <option value="943">20级黑杯</option>
-        <option value="1307">40级黑杯</option>
-        <option value="2400">100级黑杯</option>
-        <option value="393">20级魔性菩薩</option>
-        `;    
+    var dlCardTips=$("dlCardTips");
+    var cardTipStr='<option value="786">20级宝石翁</option>';
+    cardTipStr+='<option value="1089">40级宝石翁</option>'
+    cardTipStr+='<option value="2000">100级宝石翁</option>'
+    cardTipStr+='<option value="332">20级虚数</option>'
+    cardTipStr+='<option value="471">40级虚数</option>'
+    cardTipStr+='<option value="750">80级虚数</option>'
+    cardTipStr+='<option value="943">20级黑杯</option>'
+    cardTipStr+='<option value="1307">40级黑杯</option>'
+    cardTipStr+='<option value="2400">100级黑杯</option>'
+    cardTipStr+='<option value="393">20级魔性菩薩</option>'
+    dlCardTips.innerHTML=cardTipStr;   
 }
 
 Array.prototype.uniq = function () {
