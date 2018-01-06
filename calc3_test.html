@@ -423,9 +423,9 @@
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
 
 
-
+        alert(switchBtns);
         //**************以上都OK********************      
-        if(switchBtns){
+        if(switchBtns){//switchBtns这玩意在安卓手机中莫名其妙变成undefined
             switchBtns.forEach(function(s){
                 s.onchange=function(){
                     var switchCotents=document.querySelectorAll(".servant .switchCotent");
