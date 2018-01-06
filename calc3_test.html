@@ -425,29 +425,17 @@
         
 
 
-        //**************以上都OK********************
-        
-        var keys=[1,2];
-        try{
-            keys.forEach(function(k){
-                alert(k);
-            })           
-        }
-        catch(e){
-            alert("不支持forEach");
-        }
-
-
-        // switchBtns.forEach(function(s){
-        //     s.onchange=function(){
-        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
-        //         switchCotents.forEach(function(sc){
-        //             sc.classList.remove("showSwitchContent");
-        //         })
-
-        //         $(this.dataset.divid).classList.add("showSwitchContent");
-        //     }
-        // })
+        //**************以上都OK********************      
+        switchBtns.forEach(function(s){
+            s.onchange=function(){
+                var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                switchCotents.forEach(function(sc){
+                    sc.classList.remove("showSwitchContent");
+                })
+                alert(this.dataset.divid);//test
+                $(this.dataset.divid).classList.add("showSwitchContent");
+            }
+        })
     })();
 
 
