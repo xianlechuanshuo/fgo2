@@ -391,15 +391,23 @@
     loadStorage(true);
     bindSearchTips();
 
+    //******针对谷歌手机上自带的浏览器的兼容性猜测***********
     //猜测1：不支持函数自调用？(结论：支持)
     //猜测2：不支持forEach？(结论：支持)
     //猜测3：不支持dataset？(结论：支持)
     //猜测4：不支持localStorage？(结论：支持)
+    //猜测5：不支持JSON.parse
     (function(){
         window.Global_save=[];
         var n=2;//默认选择存档
-        var saveStorage=window.localStorage.getItem("saveStorage");
+        var saveStorage=storage.getItem("saveStorage");
         if (saveStorage) {
+            try{
+                saveStorage = JSON.parse(saveStorage);
+            }
+            catch(e){
+                alert("不支持JSON.parse");
+            }
             saveStorage = JSON.parse(saveStorage);
             
             window.Global_save=saveStorage;
