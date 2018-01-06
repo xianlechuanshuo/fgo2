@@ -6,7 +6,9 @@ try{
     alert(window.localStorage.setItem("test"));         
 }
 catch(e){
-    alert("不支持localStorage："+storage);
+    if(window.location.indexOf("calc3_test")!=-1){
+        alert("不支持localStorage："+storage);       
+    } 
 }
 //IOS safari浏览器无痕模式下localStorage不起作用，我们需要做判断，存在问题则提示
 if (typeof localStorage === 'object') {
