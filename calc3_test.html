@@ -414,18 +414,16 @@
 
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
         
-        for(var i=0;i<switchBtns.length;i++){
+        switchBtns.forEach(function(s){
             alert("ok");
-            var s=switchBtns[i];
             s.onchange=function(){
                 var switchCotents=document.querySelectorAll(".servant .switchCotent");
-                for(var j=0;j<switchCotents.length;j++){
-                    var sc=switchCotents[j];
+                switchCotents.forEach(function(sc){
                     sc.classList.remove("showSwitchContent");
-                }
+                })
                 $(this.dataset.divid).classList.add("showSwitchContent");
-            }           
-        }
+            }
+        })
     })();
 
 

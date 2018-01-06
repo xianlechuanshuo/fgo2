@@ -174,4 +174,55 @@ function loadScript(src){
 }
 //数组复制，不影响原数组
 Array.prototype.clone=function(){ return this.slice(0); } 
+
+
+Array.prototype.forEach = Array.prototype.forEach ||
+    function (fn, context) {
+        for (var k = 0, length = this.length; k < length; k++) {
+            if (typeof fn === "function" &&
+                Object.prototype.hasOwnProperty.call(this, k)) {
+                fn.call(context, this[k], k, this);
+            }
+        }
+    };
+
+Array.prototype.uniq = function () {
+　　var arr = [];
+　　var flag = true;
+　　this.forEach(function(item) {
+　　　　// 排除 NaN (重要！！！)
+　　　　if (item != item) {
+　　　　　　flag && arr.indexOf(item) === -1 ? arr.push(item) : '';
+　　　　　　flag = false;
+　　　　} else {
+　　　　　　arr.indexOf(item) === -1 ? arr.push(item) :''
+　　　　}
+　　});
+　　return arr;
+}
+
+// filter兼容性处理
+Array.prototype.filter = Array.prototype.filter ||
+    function (fn, context) {
+        var arr = [];
+        if (typeof fn === "function") {
+            for (var k = 0, length = this.length; k < length; k++) {
+                fn.call(context, this[k], k, this) && arr.push(this[k]);
+            }
+        }
+        return arr;
+ };
+// find兼容性处理
+Array.prototype.find = Array.prototype.find ||
+    function (fn, context) {
+        if (typeof fn === "function") {
+            for (var k = 0, length = this.length; k < length; k++) {
+                if (fn.call(context, this[k], k, this)) {
+                    return this[k];
+                }
+            }
+        }
+        return undefined;
+};
+
  
