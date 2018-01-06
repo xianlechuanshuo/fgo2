@@ -409,9 +409,13 @@
             }
 
         }
-
-        window.localStorage.setItem("test",1);
-        alert(window.localStorage.setItem("test"));
+        try{
+            window.localStorage.setItem("test",1);
+            alert(window.localStorage.setItem("test"));         
+        }
+        catch(e){
+            alert("不支持localStorage");
+        }
 
         document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
