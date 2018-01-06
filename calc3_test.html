@@ -394,7 +394,7 @@
     //猜测1：不支持函数自调用？(结论：支持)
     //猜测2：不支持forEach？(结论：支持)
     //猜测3：不支持dataset？(结论：支持)
-    //方法内this问题？
+    //猜测4：不支持localStorage？
     (function(){
         window.Global_save=[];
         var n=2;//默认选择存档
@@ -409,9 +409,10 @@
             }
 
         }
-        if(!window.localStorage){
-            alert("不支持saveStorage");
-        }
+
+        window.localStorage.setItem("test",1);
+        alert(window.localStorage.setItem("test"));
+
         document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
         document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
