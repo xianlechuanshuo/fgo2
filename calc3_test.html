@@ -391,8 +391,10 @@
     loadStorage(true);
     bindSearchTips();
 
-    //猜测1：不支持函数自调用(支持)
-    //猜测2：不支持forEach
+    //猜测1：不支持函数自调用？(结论：支持)
+    //猜测2：不支持forEach？(结论：支持)
+    //猜测3：不支持dataset？(结论：支持)
+    //猜测4：方法内this问题？
     (function(){
         window.Global_save=[];
         var n=1;//默认选择存档
@@ -415,12 +417,12 @@
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
         
         switchBtns.forEach(function(s){
-            s.onchange=function(){
+            s.onchange=function(obj){
                 var switchCotents=document.querySelectorAll(".servant .switchCotent");
                 switchCotents.forEach(function(sc){
                     sc.classList.remove("showSwitchContent");
                 })
-                $(this.dataset.divid).classList.add("showSwitchContent");
+                $(obj.dataset.divid).classList.add("showSwitchContent");
             }
         })
     })();
