@@ -397,7 +397,8 @@
     //猜测3：不支持dataset？(结论：支持)
     //猜测4：不支持localStorage？(结论：支持)
     //猜测5：不支持JSON.parse？(结论：支持)
-    //猜测6：不支持
+    //最终结论：在安卓自带浏览器中：switchBtns在用forEach遍历时中莫名其妙变成undefined，可能不识别document.querySelectorAll查询到的NodeList类型
+    
     (function(){
         window.Global_save=[];
         var n=1;//默认选择存档
@@ -424,30 +425,29 @@
 
 
         alert(switchBtns);
-        //**************以上都OK********************      
-        if(switchBtns){//switchBtns这玩意在安卓手机中莫名其妙变成undefined
-            switchBtns.forEach(function(s){
-                s.onchange=function(){
-                    var switchCotents=document.querySelectorAll(".servant .switchCotent");
-                    switchCotents.forEach(function(sc){
-                        sc.classList.remove("showSwitchContent");
-                    })
-                    $(this.dataset.divid).classList.add("showSwitchContent");
-                }
-            })              
-        }
+        //**************以上都OK********************    
+        //在安卓自带浏览器中：switchBtns在用forEach遍历时中莫名其妙变成undefined，可能不识别document.querySelectorAll查询到的NodeList类型
+        // switchBtns.forEach(function(s){
+        //     s.onchange=function(){
+        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
+        //         switchCotents.forEach(function(sc){
+        //             sc.classList.remove("showSwitchContent");
+        //         })
+        //         $(this.dataset.divid).classList.add("showSwitchContent");
+        //     }
+        // })              
        
 
 
-        // for(var i=0;i<switchBtns.length;i++){
-        //     switchBtns[i].onchange=function(){
-        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
-        //         for(var j=0;j<switchCotents.length;j++){
-        //             switchCotents[j].classList.remove("showSwitchContent");
-        //         }
-        //         $(this.dataset.divid).classList.add("showSwitchContent");
-        //     }
-        // }
+        for(var i=0;i<switchBtns.length;i++){
+            switchBtns[i].onchange=function(){
+                var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                for(var j=0;j<switchCotents.length;j++){
+                    switchCotents[j].classList.remove("showSwitchContent");
+                }
+                $(this.dataset.divid).classList.add("showSwitchContent");
+            }
+        }
     })();
 
 
