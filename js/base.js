@@ -3,7 +3,7 @@ var storage = window.localStorage;
 try{
     storage.removeItem("test");
     storage.setItem("test",1);
-    storage.getItem("test")); 
+    storage.getItem("test"); 
     
 }
 catch(e){
