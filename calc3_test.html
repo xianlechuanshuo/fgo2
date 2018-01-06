@@ -394,7 +394,7 @@
     //猜测1：不支持函数自调用？(结论：支持)
     //猜测2：不支持forEach？(结论：支持)
     //猜测3：不支持dataset？(结论：支持)
-    //猜测4：方法内this问题？
+    //方法内this问题？
     (function(){
         window.Global_save=[];
         var n=1;//默认选择存档
@@ -417,12 +417,12 @@
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
         
         switchBtns.forEach(function(s){
-            s.onchange=function(obj){
+            s.onchange=function(){
                 var switchCotents=document.querySelectorAll(".servant .switchCotent");
                 switchCotents.forEach(function(sc){
                     sc.classList.remove("showSwitchContent");
                 })
-                $(obj.dataset.divid).classList.add("showSwitchContent");
+                $(this.dataset.divid).classList.add("showSwitchContent");
             }
         })
     })();
