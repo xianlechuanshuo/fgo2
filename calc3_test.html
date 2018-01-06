@@ -421,38 +421,33 @@
         document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
 
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
-        //alert("switchBtns.length:"+switchBtns.length);
-        //alert("以上都OK");
+
 
 
         //**************以上都OK********************      
-        // try{
-        //     switchBtns.forEach(function(s){
-        //         alert("switchBtns.forEach");
-        //         s.onchange=function(){
-        //             var switchCotents=document.querySelectorAll(".servant .switchCotent");
-        //             alert("switchCotents.length:"+switchCotents.length);
-        //             switchCotents.forEach(function(sc){
-        //                 sc.classList.remove("showSwitchContent");
-        //             })
-        //             alert("this.dataset.divid:"+this.dataset.divid);//test
-        //             $(this.dataset.divid).classList.add("showSwitchContent");
-        //         }
-        //     })         
-        // }
-        // catch(e){
-        //     alert("出异常了："+e);
-        // }
-
-        for(var i=0;i<switchBtns.length;i++){
-            switchBtns[i].onchange=function(){
-                var switchCotents=document.querySelectorAll(".servant .switchCotent");
-                for(var j=0;j<switchCotents.length;j++){
-                    switchCotents[j].classList.remove("showSwitchContent");
+        if(switchBtns){
+            switchBtns.forEach(function(s){
+                s.onchange=function(){
+                    var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                    switchCotents.forEach(function(sc){
+                        sc.classList.remove("showSwitchContent");
+                    })
+                    $(this.dataset.divid).classList.add("showSwitchContent");
                 }
-                $(this.dataset.divid).classList.add("showSwitchContent");
-            }
+            })              
         }
+       
+
+
+        // for(var i=0;i<switchBtns.length;i++){
+        //     switchBtns[i].onchange=function(){
+        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
+        //         for(var j=0;j<switchCotents.length;j++){
+        //             switchCotents[j].classList.remove("showSwitchContent");
+        //         }
+        //         $(this.dataset.divid).classList.add("showSwitchContent");
+        //     }
+        // }
     })();
 
 
