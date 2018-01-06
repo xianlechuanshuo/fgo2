@@ -406,9 +406,9 @@
 
         }
 
-        document.querySelector(`.servant .switchCotent:nth-child(${n})`).classList.add("showSwitchContent");
+        document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
-        document.querySelector(`.servant .switchBtn>label:nth-child(${n})>input`).checked=true;
+        document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
 
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
         
