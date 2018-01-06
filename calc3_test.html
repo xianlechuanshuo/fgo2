@@ -390,11 +390,10 @@
     intialServantList();
     loadStorage(true);
     bindSearchTips();
-    initialSave();
 
-
-    //猜测1：不支持函数自调用
-    function initialSave(){
+    //猜测1：不支持函数自调用(支持)
+    //猜测2：不支持forEach
+    (function(){
         window.Global_save=[];
         var n=1;//默认选择存档
         var saveStorage=window.localStorage.getItem("saveStorage");
@@ -415,7 +414,8 @@
 
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
         
-        switchBtns.forEach(function(s){
+        for(var i=0;i<switchBtns.length;i++){
+            var s=switchBtns[i];
             s.onchange=function(){
                 //console.log(this);
                 var switchCotents=document.querySelectorAll(".servant .switchCotent");
@@ -423,9 +423,9 @@
                     sc.classList.remove("showSwitchContent");
                 })
                 $(this.dataset.divid).classList.add("showSwitchContent");
-            }
-        })       
-    }
+            }           
+        }
+    })();
 
 
     function loadSaveList(){
