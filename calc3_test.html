@@ -414,28 +414,18 @@
 
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
         
-        // for(var i=0;i<switchBtns.length;i++){
-        //     var s=switchBtns[i];
-        //     s.onchange=function(){
-        //         //console.log(this);
-        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
-        //         switchCotents.forEach(function(sc){
-        //             sc.classList.remove("showSwitchContent");
-        //         })
-        //         $(this.dataset.divid).classList.add("showSwitchContent");
-        //     }           
-        // }
-        switchBtns.forEach(function(s){
+        for(var i=0;i<switchBtns.length;i++){
             alert("ok");
+            var s=switchBtns[i];
             s.onchange=function(){
-                //console.log(this);
                 var switchCotents=document.querySelectorAll(".servant .switchCotent");
-                switchCotents.forEach(function(sc){
+                for(var j=0;j<switchCotents.length;j++){
+                    var sc=switchCotents[j];
                     sc.classList.remove("showSwitchContent");
-                })
+                }
                 $(this.dataset.divid).classList.add("showSwitchContent");
-            }
-        })
+            }           
+        }
     })();
 
 
