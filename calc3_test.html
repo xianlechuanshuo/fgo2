@@ -429,6 +429,7 @@
         switchBtns.forEach(function(s){
             s.onchange=function(){
                 var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                alert(switchCotents.length);
                 switchCotents.forEach(function(sc){
                     sc.classList.remove("showSwitchContent");
                 })
