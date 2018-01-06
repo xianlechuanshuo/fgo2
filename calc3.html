@@ -12,7 +12,7 @@
         .servant tr:nth-child(2) td:nth-child(even) {
             width: 15%;
         }
-/*        .servant tr:nth-child(2){
+        .servant tr:nth-child(2){
             text-align: center;
         } 
         .servant tr:nth-child(2)>td:nth-child(2) input{
@@ -23,7 +23,7 @@
         }
         .switchCotent.showSwitchContent{
             display:block;
-        }*/
+        }
     </style>
 </head>
 <body id="content" onunload="setStorage()">
@@ -51,7 +51,7 @@
                     <datalist id="dlCardTips"></datalist>
                 </td>
             </tr>
-<!--             <tr>
+            <tr>
                 <td colspan="2">
                     <div class="switchBtn">
                         <label for="rdSave"><input type="radio" id="rdSave" data-divid="divSave" name="switch">存档</label>
@@ -68,7 +68,7 @@
                         <a href="javascript:;" id="btnRemove">删除</a>
                     </div>
                 </td>
-            </tr>  -->           
+            </tr>            
             <tr>
                 <td>阵营</td>
                 <td><span id="spanCamp"></span></td>  
@@ -391,264 +391,291 @@
     loadStorage(true);
     bindSearchTips();
 
-    // (function(){
-    //     window.Global_save=[];
-    //     var n=1;//默认选择存档
-    //     var saveStorage=window.localStorage.getItem("saveStorage");
-    //     if (saveStorage) {
-    //         saveStorage = JSON.parse(saveStorage);
+    //******针对安卓手机上自带的浏览器的兼容性猜测***********
+    //猜测1：不支持函数自调用？(结论：支持)
+    //猜测2：不支持forEach？(结论：支持)
+    //猜测3：不支持dataset？(结论：支持)
+    //猜测4：不支持localStorage？(结论：支持)
+    //猜测5：不支持JSON.parse？(结论：支持)
+    //最终结论：在安卓自带浏览器中：switchBtns在用forEach遍历时中莫名其妙变成undefined，可能不识别document.querySelectorAll查询到的NodeList类型
+    
+    (function(){
+        window.Global_save=[];
+        var n=1;//默认选择存档
+        var saveStorage=storage.getItem("saveStorage");
+
+        if (saveStorage) {
+
+            saveStorage = JSON.parse(saveStorage);
             
-    //         window.Global_save=saveStorage;
-    //         if(window.Global_save.length>0){
-    //             loadSaveList();
-    //             n=2;//有存档则默认选择读档
-    //         }
+            window.Global_save=saveStorage;
+            if(window.Global_save.length>0){
+                loadSaveList();
+                n=2;//有存档则默认选择读档
+            }
 
-    //     }
+        }
 
-    //     document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
-    //     document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
+        document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
-    //     var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
+        document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
+
+        var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
+
+
+        // alert(switchBtns);
         
-    //     switchBtns.forEach(function(s){
-    //         s.onchange=function(){
-    //             //console.log(this);
-    //             var switchCotents=document.querySelectorAll(".servant .switchCotent");
-    //             switchCotents.forEach(function(sc){
-    //                 sc.classList.remove("showSwitchContent");
-    //             })
-    //             $(this.dataset.divid).classList.add("showSwitchContent");
-    //         }
-    //     })
-    // })();
+        //**************以上都OK********************    
+        //在安卓自带浏览器中：switchBtns在用forEach遍历时中莫名其妙变成undefined，可能不识别document.querySelectorAll查询到的NodeList类型
+        // switchBtns.forEach(function(s){
+        //     s.onchange=function(){
+        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
+        //         switchCotents.forEach(function(sc){
+        //             sc.classList.remove("showSwitchContent");
+        //         })
+        //         $(this.dataset.divid).classList.add("showSwitchContent");
+        //     }
+        // })              
+       
 
 
-    // function loadSaveList(){
-    //     updateSaveStorage();
-    //     //清空旧的存档列表信息
-    //     $("ddlSaveList").innerHTML="";
-    //     //重新生成新的存档列表信息
-    //     window.Global_save.forEach(function(s){
-    //         $("ddlSaveList").options.add(new Option(s.title, s.guid));
-    //     })
-    // }
-    // function updateSaveStorage(){
-    //     storage.removeItem("saveStorage");
-    //     window.Global_save.sort(compare("guid"));
-    //     storage.setItem("saveStorage", JSON.stringify(window.Global_save));            
-    // }
-    // function getMaxGuidId(){
-    //     var max=0;
-    //     window.Global_save.forEach(function(s){
-    //         if(max<s.guid){
-    //             max=s.guid;
-    //         }
-    //     })
-    //     return max+1;
-    // }
-    // //保存
-    // $("btnSave").onclick=function(){
-    //     var id = $("ddlChooseServant").value;
-    //     if (id == "-1") {
-    //         alert("请选择从者");
-    //         return;
-    //     }
-    //     var title=$("txtSaveTitle").value;
-    //     if(title==""){
-    //         alert("存档名不允许为空!");
-    //         return;
-    //     }
-    //     if(window.Global_save.length>0){
-    //         for(var i=0;i<window.Global_save.length;i++){
-    //             var s=window.Global_save[i];
-    //              if(s.title==title){
-    //                 alert("该存档名已存在，请重命名!");
-    //                 return;
-    //             }               
-    //         }
-    //     }   
-    //     var saveObj={
-    //         guid:getMaxGuidId(),
-    //         id:id,//从者下拉列表value值
-    //         title:title,//存档名
-    //         isMaxGrail:$("ckIsMaxGrail").checked,//是否圣杯MAX
-    //         lv:$("ddlLvs").value,//等级
-    //         atk:$("txtAttack").value,//攻击力
-    //         hp:$("txtMaxHp").value,//Hp最大值
-    //         remainHp:$("txtRemainHp").value,//剩余Hp值
-    //         fufuAtk:$("txtFufuAtk").value,//芙芙Atk
-    //         fufuHp:$("txtFufuHp").value,//芙芙Hp
-    //         cardAtk:$("txtCardAtk").value,//礼装Atk
-    //         cardHp:$("txtCardHp").value,//礼装Hp
-    //         cardColor:$("ddlCardColor").value,//卡色
-    //         treasureLevel:$("ddlTreasureLevel").value,//宝具等级
-    //         treasureRate:$("txtTreasureRate").value,//宝具倍率
-    //         isSpecialAttack:$("ckIsSpecialAttack").checked,//是否特攻
-    //         oc:$("ddlOc").value,//OC等级
-    //         career:getDdlText("ddlCareer"),//从者职介
-    //         careerResist:getDdlText("ddlCareerResist"),//职介克制
-    //         campResist:getDdlText("ddlCampResist"),//阵营克制
-    //         treasureSpecialAttack:$("txtTreasureSpecialAttack").value,//宝具特攻
-    //         treasurePowerBuff:$("txtTreasurePowerBuff").value,//宝具威力Buff
-    //         cardBuff:$("txtCardBuff").value,//卡牌Buff
-    //         attackBuff:$("txtAttackBuff").value,//攻击力Buff
-    //         enemyDefenceBuff:$("txtEnemyDefenceBuff").value,//敌方防御力Buff
-    //         specialAttackPowerBuff:$("txtSpecialAttackPowerBuff").value,//特攻威力Buff
-    //         specialDefencePowerBuff:$("txtSpecialDefencePowerBuff").value,//敌方特防威力BUff
-    //         fixedDamageBuff:$("txtFixedDamageBuff").value,//固定伤害Buff
-    //         enemyFixedDamageReductionBuff:$("txtEnemyFixedDamageReductionBuff").value//敌方固定减伤Buff
-    //     };
+        for(var i=0;i<switchBtns.length;i++){
+            switchBtns[i].onchange=function(){
+                var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                for(var j=0;j<switchCotents.length;j++){
+                    switchCotents[j].classList.remove("showSwitchContent");
+                }
+                $(this.dataset.divid).classList.add("showSwitchContent");
+            }
+        }
+    })();
 
-    //     window.Global_save.push(saveObj);
-    //     loadSaveList();
-    //     $("txtSaveTitle").value="";
-    //     alert("存档保存成功!");
-    // }
 
-    // //加载
-    // $("btnLoad").onclick=function(){
-    //     var guid=$("ddlSaveList").value;
-    //     if(guid==""){
-    //         alert("没东西可加载!");
-    //         return;
-    //     }     
-    //     var currentSaveObj;
+    function loadSaveList(){
+        updateSaveStorage();
+        //清空旧的存档列表信息
+        $("ddlSaveList").innerHTML="";
+        //重新生成新的存档列表信息
+        window.Global_save.forEach(function(s){
+            $("ddlSaveList").options.add(new Option(s.title, s.guid));
+        })
+    }
+    function updateSaveStorage(){
+        storage.removeItem("saveStorage");
+        window.Global_save.sort(compare("guid"));
+        storage.setItem("saveStorage", JSON.stringify(window.Global_save));            
+    }
+    function getMaxGuidId(){
+        var max=0;
+        window.Global_save.forEach(function(s){
+            if(max<s.guid){
+                max=s.guid;
+            }
+        })
+        return max+1;
+    }
+    //保存
+    $("btnSave").onclick=function(){
+        var id = $("ddlChooseServant").value;
+        if (id == "-1") {
+            alert("请选择从者");
+            return;
+        }
+        var title=$("txtSaveTitle").value;
+        if(title==""){
+            alert("存档名不允许为空!");
+            return;
+        }
+        if(window.Global_save.length>0){
+            for(var i=0;i<window.Global_save.length;i++){
+                var s=window.Global_save[i];
+                 if(s.title==title){
+                    alert("该存档名已存在，请重命名!");
+                    return;
+                }               
+            }
+        }   
+        var saveObj={
+            guid:getMaxGuidId(),
+            id:id,//从者下拉列表value值
+            title:title,//存档名
+            isMaxGrail:$("ckIsMaxGrail").checked,//是否圣杯MAX
+            lv:$("ddlLvs").value,//等级
+            atk:$("txtAttack").value,//攻击力
+            hp:$("txtMaxHp").value,//Hp最大值
+            remainHp:$("txtRemainHp").value,//剩余Hp值
+            fufuAtk:$("txtFufuAtk").value,//芙芙Atk
+            fufuHp:$("txtFufuHp").value,//芙芙Hp
+            cardAtk:$("txtCardAtk").value,//礼装Atk
+            cardHp:$("txtCardHp").value,//礼装Hp
+            cardColor:$("ddlCardColor").value,//卡色
+            treasureLevel:$("ddlTreasureLevel").value,//宝具等级
+            treasureRate:$("txtTreasureRate").value,//宝具倍率
+            isSpecialAttack:$("ckIsSpecialAttack").checked,//是否特攻
+            oc:$("ddlOc").value,//OC等级
+            career:getDdlText("ddlCareer"),//从者职介
+            careerResist:getDdlText("ddlCareerResist"),//职介克制
+            campResist:getDdlText("ddlCampResist"),//阵营克制
+            treasureSpecialAttack:$("txtTreasureSpecialAttack").value,//宝具特攻
+            treasurePowerBuff:$("txtTreasurePowerBuff").value,//宝具威力Buff
+            cardBuff:$("txtCardBuff").value,//卡牌Buff
+            attackBuff:$("txtAttackBuff").value,//攻击力Buff
+            enemyDefenceBuff:$("txtEnemyDefenceBuff").value,//敌方防御力Buff
+            specialAttackPowerBuff:$("txtSpecialAttackPowerBuff").value,//特攻威力Buff
+            specialDefencePowerBuff:$("txtSpecialDefencePowerBuff").value,//敌方特防威力BUff
+            fixedDamageBuff:$("txtFixedDamageBuff").value,//固定伤害Buff
+            enemyFixedDamageReductionBuff:$("txtEnemyFixedDamageReductionBuff").value//敌方固定减伤Buff
+        };
 
-    //     window.Global_save.forEach(function(s){
-    //         if(s.guid==guid){
-    //             currentSaveObj=s;
-    //             //1. forEach中不能使用break，用了会抛出异常
-    //             //2. forEach中使用return 语句不会直接跳出整个方法，阻断下面代码执行
-    //             return;              
-    //         }
-    //     })
-    //     if(currentSaveObj){
-    //         $("txtWord").value="";
-    //         search();
-    //         $("ddlChooseServant").value=currentSaveObj.id;
+        window.Global_save.push(saveObj);
+        loadSaveList();
+        $("txtSaveTitle").value="";
+        alert("存档保存成功!");
+    }
 
-    //         //加载具体存档信息
+    //加载
+    $("btnLoad").onclick=function(){
+        var guid=$("ddlSaveList").value;
+        if(guid==""){
+            alert("没东西可加载!");
+            return;
+        }     
+        var currentSaveObj;
+
+        window.Global_save.forEach(function(s){
+            if(s.guid==guid){
+                currentSaveObj=s;
+                //1. forEach中不能使用break，用了会抛出异常
+                //2. forEach中使用return 语句不会直接跳出整个方法，阻断下面代码执行
+                return;              
+            }
+        })
+        if(currentSaveObj){
+            $("txtWord").value="";
+            search();
+            $("ddlChooseServant").value=currentSaveObj.id;
+
+            //加载具体存档信息
             
-    //         //是否圣杯MAX
-    //         $("ckIsMaxGrail").checked=currentSaveObj.isMaxGrail;
+            //是否圣杯MAX
+            $("ckIsMaxGrail").checked=currentSaveObj.isMaxGrail;
 
-    //         //等级
-    //         $("ddlLvs").value=currentSaveObj.lv;
+            //等级
+            $("ddlLvs").value=currentSaveObj.lv;
 
-    //         //攻击力
-    //         $("txtAttack").value=currentSaveObj.atk;
+            //攻击力
+            $("txtAttack").value=currentSaveObj.atk;
 
-    //         //Hp最大值
-    //         $("txtMaxHp").value=currentSaveObj.hp;
+            //Hp最大值
+            $("txtMaxHp").value=currentSaveObj.hp;
 
-    //         //剩余Hp值
-    //         $("txtRemainHp").value=currentSaveObj.remainHp;
+            //剩余Hp值
+            $("txtRemainHp").value=currentSaveObj.remainHp;
 
-    //         //芙芙Atk
-    //         $("txtFufuAtk").value=currentSaveObj.fufuAtk;
+            //芙芙Atk
+            $("txtFufuAtk").value=currentSaveObj.fufuAtk;
 
-    //         //芙芙Hp
-    //         $("txtFufuHp").value=currentSaveObj.fufuHp;
+            //芙芙Hp
+            $("txtFufuHp").value=currentSaveObj.fufuHp;
 
-    //         //礼装Atk
-    //         $("txtCardAtk").value=currentSaveObj.cardAtk;
+            //礼装Atk
+            $("txtCardAtk").value=currentSaveObj.cardAtk;
 
-    //         //礼装Hp
-    //         $("txtCardHp").value=currentSaveObj.cardHp;
+            //礼装Hp
+            $("txtCardHp").value=currentSaveObj.cardHp;
 
-    //         //卡色
-    //         $("ddlCardColor").value=currentSaveObj.cardColor;
+            //卡色
+            $("ddlCardColor").value=currentSaveObj.cardColor;
 
-    //         //宝具等级
-    //         $("ddlTreasureLevel").value=currentSaveObj.treasureLevel;
+            //宝具等级
+            $("ddlTreasureLevel").value=currentSaveObj.treasureLevel;
 
-    //         //宝具倍率
-    //         $("txtTreasureRate").value=currentSaveObj.treasureRate;
+            //宝具倍率
+            $("txtTreasureRate").value=currentSaveObj.treasureRate;
 
-    //         //是否特攻
-    //         $("ckIsSpecialAttack").checked=currentSaveObj.isSpecialAttack;
+            //是否特攻
+            $("ckIsSpecialAttack").checked=currentSaveObj.isSpecialAttack;
 
-    //         //OC等级
-    //         $("ddlOc").value=currentSaveObj.oc;
+            //OC等级
+            $("ddlOc").value=currentSaveObj.oc;
 
-    //         //从者职介
-    //         var careers = $("ddlCareer").options;
-    //         for (var i = 0; i < careers.length; i++) {
-    //             var career = careers[i];
-    //             if (career.text == currentSaveObj.career) {
-    //                 career.selected = true;
-    //             }
-    //         }
+            //从者职介
+            var careers = $("ddlCareer").options;
+            for (var i = 0; i < careers.length; i++) {
+                var career = careers[i];
+                if (career.text == currentSaveObj.career) {
+                    career.selected = true;
+                }
+            }
 
-    //         //职介克制
-    //         var careerResists=$("ddlCareerResist").options;
-    //         for (var i = 0; i < careerResists.length; i++) {
-    //             var careerResist = careerResists[i];
-    //             if (careerResist.text == currentSaveObj.careerResist) {
-    //                 careerResist.selected = true;
-    //             }
-    //         }  
+            //职介克制
+            var careerResists=$("ddlCareerResist").options;
+            for (var i = 0; i < careerResists.length; i++) {
+                var careerResist = careerResists[i];
+                if (careerResist.text == currentSaveObj.careerResist) {
+                    careerResist.selected = true;
+                }
+            }  
 
-    //         //阵营克制
-    //         var campResists=$("ddlCampResist").options;
-    //         for (var i = 0; i < campResists.length; i++) {
-    //             var campResist = campResists[i];
-    //             if (campResist.text == currentSaveObj.campResist) {
-    //                 campResist.selected = true;
-    //             }
-    //         }     
+            //阵营克制
+            var campResists=$("ddlCampResist").options;
+            for (var i = 0; i < campResists.length; i++) {
+                var campResist = campResists[i];
+                if (campResist.text == currentSaveObj.campResist) {
+                    campResist.selected = true;
+                }
+            }     
 
-    //         //宝具特攻
-    //         $("txtTreasureSpecialAttack").value=currentSaveObj.treasureSpecialAttack;
+            //宝具特攻
+            $("txtTreasureSpecialAttack").value=currentSaveObj.treasureSpecialAttack;
 
-    //         //宝具威力Buff
-    //         $("txtTreasurePowerBuff").value=currentSaveObj.treasurePowerBuff;
+            //宝具威力Buff
+            $("txtTreasurePowerBuff").value=currentSaveObj.treasurePowerBuff;
 
-    //         //卡牌Buff
-    //         $("txtCardBuff").value=currentSaveObj.cardBuff;
+            //卡牌Buff
+            $("txtCardBuff").value=currentSaveObj.cardBuff;
 
-    //         //攻击力Buff
-    //         $("txtAttackBuff").value=currentSaveObj.attackBuff;
+            //攻击力Buff
+            $("txtAttackBuff").value=currentSaveObj.attackBuff;
 
-    //         //敌方防御力Buff
-    //         $("txtEnemyDefenceBuff").value=currentSaveObj.enemyDefenceBuff;
+            //敌方防御力Buff
+            $("txtEnemyDefenceBuff").value=currentSaveObj.enemyDefenceBuff;
 
-    //         //特攻威力Buff
-    //         $("txtSpecialAttackPowerBuff").value=currentSaveObj.specialAttackPowerBuff;
+            //特攻威力Buff
+            $("txtSpecialAttackPowerBuff").value=currentSaveObj.specialAttackPowerBuff;
 
-    //         //敌方特防威力Buff
-    //         $("txtSpecialDefencePowerBuff").value=currentSaveObj.specialDefencePowerBuff;
+            //敌方特防威力Buff
+            $("txtSpecialDefencePowerBuff").value=currentSaveObj.specialDefencePowerBuff;
 
-    //         //固定伤害Buff
-    //         $("txtFixedDamageBuff").value=currentSaveObj.fixedDamageBuff;
+            //固定伤害Buff
+            $("txtFixedDamageBuff").value=currentSaveObj.fixedDamageBuff;
 
-    //         //敌方固定减伤Buff
-    //         $("txtEnemyFixedDamageReductionBuff").value=currentSaveObj.enemyFixedDamageReductionBuff;
+            //敌方固定减伤Buff
+            $("txtEnemyFixedDamageReductionBuff").value=currentSaveObj.enemyFixedDamageReductionBuff;
 
-    //     }
-    // }
+        }
+    }
  
 
-    // //删除
-    // $("btnRemove").onclick=function(){
-    //     var guid=$("ddlSaveList").value;
-    //     if(guid==""){
-    //         alert("没东西可删!");
-    //         return;
-    //     }
-    //     for(var i=0;i<window.Global_save.length;i++){
-    //         var s=window.Global_save[i];
-    //         if(s.guid==guid){
-    //             //删除指定项
-    //             window.Global_save.remove(i);
-    //             //更新缓存
-    //             loadSaveList();
-    //             return;
-    //         }
-    //     }
-    // }
+    //删除
+    $("btnRemove").onclick=function(){
+        var guid=$("ddlSaveList").value;
+        if(guid==""){
+            alert("没东西可删!");
+            return;
+        }
+        for(var i=0;i<window.Global_save.length;i++){
+            var s=window.Global_save[i];
+            if(s.guid==guid){
+                //删除指定项
+                window.Global_save.remove(i);
+                //更新缓存
+                loadSaveList();
+                return;
+            }
+        }
+    }
 
     //圣杯MAX勾选框改变事件
     $("ckIsMaxGrail").onchange = function () {
