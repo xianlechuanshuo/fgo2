@@ -396,6 +396,17 @@
     //猜测3：不支持dataset？(结论：支持)
     //猜测4：不支持localStorage？
     (function(){
+
+        try{
+            window.localStorage.setItem("test",1);
+            alert(window.localStorage.setItem("test"));         
+        }
+        catch(e){
+            alert("不支持localStorage");
+        }
+
+
+                
         window.Global_save=[];
         var n=2;//默认选择存档
         var saveStorage=window.localStorage.getItem("saveStorage");
@@ -409,13 +420,7 @@
             }
 
         }
-        try{
-            window.localStorage.setItem("test",1);
-            alert(window.localStorage.setItem("test"));         
-        }
-        catch(e){
-            alert("不支持localStorage");
-        }
+
 
         document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
