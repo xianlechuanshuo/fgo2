@@ -34,7 +34,7 @@ table {
     width: 100%;
 }
 
-.servant tr:nth-child(1), .servant tr:last-child {
+.servant tr:nth-child(1), .servant tr:last-child{
     text-align: center;
 }
 
@@ -42,7 +42,12 @@ table {
     border: #808080 solid thick;
     position: absolute;
     top:2%;
-    left: 28%;
+
+    /*绝对定位盒子居中*/
+    left: 50%;
+    /*这里的负号代表跟元素原来移动方向相反的方向*/
+    margin-left: -300px;
+
     display: none;
     background-color: white;
 }
@@ -63,7 +68,7 @@ table {
     display: none;
 }
 
-input[type="checkbox"], select {
+input[type="checkbox"], input[type="radio"], select {
     vertical-align: middle;
 }
 
@@ -72,13 +77,16 @@ input[type="button"] {
 }
 
 .cards {
-    text-align: center;
+    width:360px;
+    margin:0 auto;
 }
 .cards>ul{
     list-style: none;
+    height:72px;
 }
 .cards>ul>li{
-    display: inline-block;
+    display: block;
+    float:left;
     /*原图140X140，这里缩放成72X72*/
     height:72px;
     width:72px;
