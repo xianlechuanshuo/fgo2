@@ -396,11 +396,9 @@
     //猜测3：不支持dataset？(结论：支持)
     //猜测4：不支持localStorage？(结论：不支持，你大爷的)
     (function(){
-        if (!window.localStorage) {
-            alert("开始：不支持localStorage");
-        }
 
         try{
+            window.localStorage.removeItem("test");
             window.localStorage.setItem("test",1);
             alert(window.localStorage.setItem("test"));         
         }
