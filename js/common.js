@@ -176,16 +176,6 @@ function loadScript(src){
 Array.prototype.clone=function(){ return this.slice(0); } 
 
 
-Array.prototype.forEach = Array.prototype.forEach ||
-    function (fn, context) {
-        for (var k = 0, length = this.length; k < length; k++) {
-            if (typeof fn === "function" &&
-                Object.prototype.hasOwnProperty.call(this, k)) {
-                fn.call(context, this[k], k, this);
-            }
-        }
-    };
-
 Array.prototype.uniq = function () {
 　　var arr = [];
 　　var flag = true;

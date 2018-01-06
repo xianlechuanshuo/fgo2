@@ -394,7 +394,7 @@
     //猜测1：不支持函数自调用？(结论：支持)
     //猜测2：不支持forEach？(结论：支持)
     //猜测3：不支持dataset？(结论：支持)
-    //猜测4：不支持localStorage？
+    //猜测4：不支持localStorage？(结论：不支持，你大爷的)
     (function(){
 
         try{
@@ -406,7 +406,7 @@
         }
 
 
-                
+
         window.Global_save=[];
         var n=2;//默认选择存档
         var saveStorage=window.localStorage.getItem("saveStorage");
