@@ -426,18 +426,23 @@
 
 
         //**************以上都OK********************      
-        switchBtns.forEach(function(s){
-            alert("switchBtns.forEach");
-            s.onchange=function(){
-                var switchCotents=document.querySelectorAll(".servant .switchCotent");
-                alert("switchCotents.length:"+switchCotents.length);
-                switchCotents.forEach(function(sc){
-                    sc.classList.remove("showSwitchContent");
-                })
-                alert("this.dataset.divid:"+this.dataset.divid);//test
-                $(this.dataset.divid).classList.add("showSwitchContent");
-            }
-        })
+        try{
+            switchBtns.forEach(function(s){
+                alert("switchBtns.forEach");
+                s.onchange=function(){
+                    var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                    alert("switchCotents.length:"+switchCotents.length);
+                    switchCotents.forEach(function(sc){
+                        sc.classList.remove("showSwitchContent");
+                    })
+                    alert("this.dataset.divid:"+this.dataset.divid);//test
+                    $(this.dataset.divid).classList.add("showSwitchContent");
+                }
+            })         
+        }
+        catch(e){
+            alert("出异常了："+e);
+        }
     })();
 
 
