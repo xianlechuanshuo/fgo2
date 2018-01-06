@@ -397,7 +397,7 @@
     //方法内this问题？
     (function(){
         window.Global_save=[];
-        var n=1;//默认选择存档
+        var n=2;//默认选择存档
         var saveStorage=window.localStorage.getItem("saveStorage");
         if (saveStorage) {
             saveStorage = JSON.parse(saveStorage);
@@ -422,6 +422,7 @@
                 switchCotents.forEach(function(sc){
                     sc.classList.remove("showSwitchContent");
                 })
+                
                 $(this.dataset.divid).classList.add("showSwitchContent");
             }
         })
