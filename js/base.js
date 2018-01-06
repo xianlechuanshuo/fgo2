@@ -1,7 +1,7 @@
 ﻿//localStorage只能存储字符串，如果需要存储对象，首先要转化为字符串。利用JSON.stringify()；
 var storage = window.localStorage;
 try{
-    storage.removeItem("test");
+    //storage.removeItem("test");
     storage.setItem("test",1);
     if(window.location.href.indexOf("calc3_test")!=-1){
        alert(window.localStorage.getItem("test")); 
