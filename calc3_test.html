@@ -409,7 +409,9 @@
             }
 
         }
-
+        if(!window.localStorage){
+            alert("不支持saveStorage");
+        }
         document.querySelector(".servant .switchCotent:nth-child("+n+")").classList.add("showSwitchContent");
 
         document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
@@ -422,7 +424,7 @@
                 switchCotents.forEach(function(sc){
                     sc.classList.remove("showSwitchContent");
                 })
-                
+
                 $(this.dataset.divid).classList.add("showSwitchContent");
             }
         })
