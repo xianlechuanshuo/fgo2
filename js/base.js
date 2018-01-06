@@ -1,13 +1,7 @@
 ﻿//localStorage只能存储字符串，如果需要存储对象，首先要转化为字符串。利用JSON.stringify()；
 var storage = window.localStorage;
-try{
-    storage.removeItem("test");
-    storage.setItem("test",1);
-    storage.getItem("test"); 
-    
-}
-catch(e){
-    alert("不支持localStorage");       
+if (!storage) {
+    alert("请使用支持html5的浏览器!");
 }
 //IOS safari浏览器无痕模式下localStorage不起作用，我们需要做判断，存在问题则提示
 if (typeof storage === 'object') {
