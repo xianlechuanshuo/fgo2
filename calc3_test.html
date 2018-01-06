@@ -396,21 +396,12 @@
     //猜测2：不支持forEach？(结论：支持)
     //猜测3：不支持dataset？(结论：支持)
     //猜测4：不支持localStorage？(结论：支持)
-    //猜测5：不支持JSON.parse
+    //猜测5：不支持JSON.parse？(结论：支持)
+    //猜测6：不支持
     (function(){
         window.Global_save=[];
         var n=1;//默认选择存档
         var saveStorage=storage.getItem("saveStorage");
-
-        try{
-            var obj={name:"张三"};
-            obj=JSON.stringify(obj);
-            obj=JSON.parse(obj);
-        }
-        catch(e){
-            alert("不支持JSON.parse");
-        }
-
 
         if (saveStorage) {
 
@@ -430,17 +421,17 @@
         document.querySelector(".servant .switchBtn>label:nth-child("+n+")>input").checked=true;
 
         var switchBtns=document.querySelectorAll(".servant .switchBtn input[type=radio]");
-        
-        switchBtns.forEach(function(s){
-            s.onchange=function(){
-                var switchCotents=document.querySelectorAll(".servant .switchCotent");
-                switchCotents.forEach(function(sc){
-                    sc.classList.remove("showSwitchContent");
-                })
+        alert(switchBtns.length);
+        // switchBtns.forEach(function(s){
+        //     s.onchange=function(){
+        //         var switchCotents=document.querySelectorAll(".servant .switchCotent");
+        //         switchCotents.forEach(function(sc){
+        //             sc.classList.remove("showSwitchContent");
+        //         })
 
-                $(this.dataset.divid).classList.add("showSwitchContent");
-            }
-        })
+        //         $(this.dataset.divid).classList.add("showSwitchContent");
+        //     }
+        // })
     })();
 
 
