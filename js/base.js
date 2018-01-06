@@ -3,7 +3,9 @@ var storage = window.localStorage;
 try{
     storage.removeItem("test");
     storage.setItem("test",1);
-    alert(window.localStorage.setItem("test"));         
+    if(window.location.href.indexOf("calc3_test")!=-1){
+       alert(window.localStorage.getItem("test")); 
+    }        
 }
 catch(e){
     if(window.location.href.indexOf("calc3_test")!=-1){
