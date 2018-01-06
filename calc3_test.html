@@ -390,8 +390,11 @@
     intialServantList();
     loadStorage(true);
     bindSearchTips();
+    initialSave();
 
-    (function(){
+
+    //猜测1：不支持函数自调用
+    function initialSave(){
         window.Global_save=[];
         var n=1;//默认选择存档
         var saveStorage=window.localStorage.getItem("saveStorage");
@@ -421,8 +424,8 @@
                 })
                 $(this.dataset.divid).classList.add("showSwitchContent");
             }
-        })
-    })();
+        })       
+    }
 
 
     function loadSaveList(){
