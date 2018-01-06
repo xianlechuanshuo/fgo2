@@ -445,7 +445,13 @@
         // }
 
         for(var i=0;i<switchBtns.length;i++){
-            alert("i:"+i+"  switchBtns[i].id:"+switchBtns[i].id)
+            switchBtns[i].onchange=function(){
+                var switchCotents=document.querySelectorAll(".servant .switchCotent");
+                for(var j=0;j<switchCotents.length;j++){
+                    switchCotents[j].classList.remove("showSwitchContent");
+                }
+                $(this.dataset.divid).classList.add("showSwitchContent");
+            }
         }
     })();
 
