@@ -46,7 +46,17 @@ function check(key) {
 }
 
 //UC和自带的浏览器也不识别filter方法
-servants=servants.filter(containsAttribute);
-alert(servants.length);
+// servants=servants.filter(containsAttribute);
+// alert(servants.length);
+try{
+    servants.forEach(function(servant){
+        if(servant.servantNo===160){
+            console.log(servant);
+            foreach.break=new Error("跳出循环");
+        }
+    })    
+}
+catch(e){}
+
 
 </script>
